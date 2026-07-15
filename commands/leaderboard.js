@@ -26,6 +26,19 @@ module.exports = {
       });
 
       const rows = response.data.values;
+      rows.sort((a, b) => {
+    const winsA = parseInt(a[3]) || 0;
+    const winsB = parseInt(b[3]) || 0;
+
+    if (winsB !== winsA) {
+        return winsB - winsA; // Most wins first
+    }
+
+    const winRateA = parseFloat((a[5] || "0").replace("%", ""));
+    const winRateB = parseFloat((b[5] || "0").replace("%", ""));
+
+    return winRateB - winRateA; // Tie-breaker
+});
 
       if (!rows || rows.length === 0) {
         return interaction.reply("The leaderboard is empty.");
@@ -40,7 +53,7 @@ rows.forEach((row, index) => {
     if (index === 0) place = "🥇";
     else if (index === 1) place = "🥈";
     else if (index === 2) place = "🥉";
-    else place = `**${row[0]}.**`;
+    else place = `${index + 1}.`;
 
 message += `${place} **${row[1]} (${row[2]})**
 ${row[3]} Wins | ${row[4]} Losses | Win Rate: ${parseFloat(row[5].replace(",", ".")).toFixed(1)}%
