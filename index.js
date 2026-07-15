@@ -36,5 +36,5 @@ for (const file of eventFiles) {
 client.on('interactionCreate', async interaction => {
     console.log(`Received command: ${interaction.commandName}`);
 });
-client.login(process.env.TOKEN);
+client.login(process.env.DISCORD_TOKEN);
 

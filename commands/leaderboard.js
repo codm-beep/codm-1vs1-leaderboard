@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 const { google } = require("googleapis");
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: "./credentials/codm-leaderboard-502322-4400356b923e.json",
+  keyFile: "./credentials/codm-leaderboard-502322-7cd67a4e30f7.json",
   scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
 });
 
@@ -31,23 +31,29 @@ module.exports = {
         return interaction.reply("The leaderboard is empty.");
       }
 
-      let message = "🏆 **1vs1 Sniper Leaderboard**\n\n";
+let message = ` 🏆✨ 1vs1 Sniper Leaderboard ✨🏆 
 
+`;
 rows.forEach((row, index) => {
     let place;
 
     if (index === 0) place = "🥇";
     else if (index === 1) place = "🥈";
     else if (index === 2) place = "🥉";
-    else place = `${row[0]}.`;
+    else place = `**${row[0]}.**`;
 
-    message += `${place} **${row[1]}** (${row[2]})
-${row[3]} Wins • ${row[4]} Losses • ${row[5]} Win Rate
+message += `${place} **${row[1]} (${row[2]})**
+${row[3]} Wins | ${row[4]} Losses | Win Rate: ${parseFloat(row[5].replace(",", ".")).toFixed(1)}%
 
 `;
 });
 
-      await interaction.reply(message);
+const timestamp = Math.floor(Date.now() / 1000);
+
+message += `🕒 Last updated: <t:${timestamp}:R>`;
+
+await interaction.reply(message);
+
 
     } catch (err) {
       console.error(err);

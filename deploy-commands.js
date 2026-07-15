@@ -1,14 +1,15 @@
 const { REST, Routes } = require('discord.js');
 require('dotenv').config();
+
 console.log(process.env.CLIENT_ID);
 console.log(process.env.GUILD_ID);
-console.log(process.env.TOKEN ? "TOKEN FOUND" : "NO TOKEN");
+console.log(process.env.DISCORD_TOKEN ? "TOKEN FOUND" : "NO TOKEN");
 
 const commands = [
     require('./commands/leaderboard').data.toJSON(),
 ];
 
-const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
     try {
