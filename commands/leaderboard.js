@@ -47,7 +47,7 @@ module.exports = {
 let message = ` 🏆✨ 1vs1 Sniper Leaderboard ✨🏆 
 
 `;
-rows.forEach((row, index) => {
+rows.slice(0, 10).forEach((row, index) => {
     let place;
 
     if (index === 0) place = "🥇";
@@ -63,6 +63,7 @@ ${row[3]} Wins | ${row[4]} Losses | Win Rate: ${parseFloat(row[5].replace(",", "
 
 const timestamp = Math.floor(Date.now() / 1000);
 
+message += `👥 Total Players: ${rows.length}\n\n`;
 message += `🕒 Last updated: <t:${timestamp}:R>`;
 
 await interaction.reply(message);
