@@ -18,6 +18,7 @@ module.exports = {
 
   async execute(interaction) {
     console.log("🔥 leaderboard.js EXECUTED");
+    await interaction.deferReply();
 
     try {
       const response = await sheets.spreadsheets.values.get({
@@ -66,12 +67,11 @@ const timestamp = Math.floor(Date.now() / 1000);
 message += `👥 Total Players: ${rows.length}\n\n`;
 message += `🕒 Last updated: <t:${timestamp}:R>`;
 
-await interaction.reply(message);
+    await interaction.editReply(message);
 
-
-    } catch (err) {
-      console.error(err);
-      await interaction.reply("Couldn't load the leaderboard.");
-    }
-  },
+  } catch (err) {
+    console.error(err);
+    await interaction.editReply("Couldn't load the leaderboard.");
+  }
+},
 };
