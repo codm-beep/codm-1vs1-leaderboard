@@ -17,8 +17,8 @@ module.exports = {
     .setDescription("Shows the current leaderboard"),
 
   async execute(interaction) {
-    console.log("🔥 leaderboard.js EXECUTED");
     await interaction.deferReply();
+    console.log("🔥 leaderboard.js EXECUTED");
 
     try {
       const response = await sheets.spreadsheets.values.get({
