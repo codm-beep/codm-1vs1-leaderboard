@@ -27,6 +27,8 @@ module.exports = {
       });
 
       const rows = response.data.values;
+      console.log("Rows received:", rows.length);
+      console.log(rows);
       rows.sort((a, b) => {
     const winsA = parseInt(a[3]) || 0;
     const winsB = parseInt(b[3]) || 0;
